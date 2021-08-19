@@ -35,15 +35,14 @@ stages:
     - Set_Var
     variables:
       var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
-    steps:
-      - task: AzureCLI@2
-        name: "Az_Job2"
-        displayName: Spit out variable set in previous task
-        inputs:
+  - task: AzureCLI@2
+    name: "Az_Job2"
+    displayName: Spit out variable set in previous task
+    inputs:
           azureSubscription: 'Azure Sub 1'
           scriptType: bash
           scriptLocation: 'inlineScript'
           addSpnToEnvironment: true
           inlineScript: |
             set -eu -o pipefail
-            echo "hello $env:var"
+            echo "$env:var"
