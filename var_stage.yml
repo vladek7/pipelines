@@ -35,5 +35,6 @@ stages:
     - Set_Var
     variables:
       var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
-    powershell:
-      Write-Host "$env:var"
+    steps:
+    - bash: |
+        echo "hello $var"
