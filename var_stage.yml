@@ -35,7 +35,7 @@ stages:
   - job: Spit_Var
     dependsOn: Set_Var
     variables: 
-      myVar: $[ dependancies.Set_Var.outputs['Az_Job1.JobVar1'] ]
+      myVar: $[ dependencies.Set_Var.outputs['Az_Job1.JobVar1'] ]
     steps:
     - task: AzureCLI@2
       name: "Az_Job2"
