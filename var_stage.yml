@@ -46,4 +46,4 @@ stages:
           addSpnToEnvironment: true
           inlineScript: |
             set -eu -o pipefail
-            echo "hello"
+            echo "hello $env:var"
