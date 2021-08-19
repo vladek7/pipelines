@@ -1,0 +1,46 @@
+parameters:
+- name: Parameter1
+  displayName: " Parameter to use"
+  type: boolean
+  default: true
+
+variables:
+  subscription_name: "Azure subscription 1"
+  subscription_id: 4f80d94f-882c-44cc-b300-aa85859151cb
+  
+
+name: RunPipeline
+
+stages:
+- stage: SingleOne
+  displayName: "Test for variable"
+  jobs:
+  - job: Set_Var
+    steps:
+    - task: AzureCLI@2
+      name: "Az_Job"
+      displayName: Create and set value to variable
+      inputs:
+        azureSubscription: 'Azure Sub 1'
+        scriptType: bash
+        scriptLocation: 'inlineScript'
+        addSpnToEnvironment: true
+        inlineScript: |
+          set -eu -o pipefail
+          az account list -o table
+          export VAR_VALUE=s.3d4ertfdg434dfsw2
+          echo "##vso[task.setvariable variable=JobVar1;isOutput=true]$VAR_VALUE"
+  - job: Spit_Var
+    dependsOn:
+    - Set_Var
+    var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
+    steps:
+    - task: AzureCLI@2
+      name: "Az_Job2"
+      displayName: Spit out variable set in previous task
+      inputs:
+        azureSubscription: 'Azure Sub 1'
+        scriptType: bash
+        scriptLocation: 'inlineScript'
+        addSpnToEnvironment: true
+        inlineScript: |
