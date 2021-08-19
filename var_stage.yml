@@ -33,14 +33,16 @@ stages:
   - job: Spit_Var
     dependsOn:
     - Set_Var
-    var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
-    steps:
-    - task: AzureCLI@2
-      name: "Az_Job2"
-      displayName: Spit out variable set in previous task
-      inputs:
-        azureSubscription: 'Azure Sub 1'
-        scriptType: bash
-        scriptLocation: 'inlineScript'
-        addSpnToEnvironment: true
-        inlineScript: |
+      var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
+      steps:
+      - task: AzureCLI@2
+        name: "Az_Job2"
+        displayName: Spit out variable set in previous task
+        inputs:
+          azureSubscription: 'Azure Sub 1'
+          scriptType: bash
+          scriptLocation: 'inlineScript'
+          addSpnToEnvironment: true
+          inlineScript: |
+            set -eu -o pipefail
+            echo "hello"
