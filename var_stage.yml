@@ -33,8 +33,8 @@ stages:
   - job: Spit_Var
     dependsOn:
     - Set_Var
-      var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
-      steps:
+    var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
+    steps:
       - task: AzureCLI@2
         name: "Az_Job2"
         displayName: Spit out variable set in previous task
