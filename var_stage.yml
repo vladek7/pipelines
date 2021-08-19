@@ -18,7 +18,7 @@ stages:
   - job: Set_Var
     steps:
     - task: AzureCLI@2
-      name: "Az_Job"
+      name: "Az_Job1"
       displayName: Create and set value to variable
       inputs:
         azureSubscription: 'Azure Sub 1'
@@ -27,14 +27,18 @@ stages:
         addSpnToEnvironment: true
         inlineScript: |
           set -eu -o pipefail
-          az account list -o table
           export VAR_VALUE=s.3d4ertfdg434dfsw2
           echo "##vso[task.setvariable variable=JobVar1;isOutput=true]$VAR_VALUE"
-  - job: Spit_Var
-    dependsOn:
-    - Set_Var
-    variables:
-      var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
-    steps:
-    - bash: |
-        echo "hello $var"
+          echo $VAR_VALUE
+          echo $(JobVar1)
+    - task: AzureCLI@2
+      name: "Az_Job2"
+      displayName: Get variable and print it
+      inputs:
+        azureSubscription: 'Azure Sub 1'
+        scriptType: bash
+        scriptLocation: 'inlineScript'
+        addSpnToEnvironment: true
+        inlineScript: |
+          set -eu -o pipefail
+          echo $(JobVar1)
