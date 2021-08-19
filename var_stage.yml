@@ -34,7 +34,7 @@ stages:
     dependsOn:
     - Set_Var
     variables:
-    var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
+      var: $[ dependencies.Set_Var.outputs['Az_Job.JobVar1'] ]
     steps:
       - task: AzureCLI@2
         name: "Az_Job2"
