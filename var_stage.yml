@@ -29,7 +29,7 @@ stages:
           set -eu -o pipefail
           export VAR_VALUE=s.3d4ertfdg434dfsw2
           echo "##vso[task.setvariable variable=JobVar1;isOutput=true]$VAR_VALUE"
-          echo $(JobVar1)
+          echo $(Az_Job1.JobVar1)
     - script: echo $(Az_Job1.JobVar1)
       name: echoVar
   - job: Spit_Var
