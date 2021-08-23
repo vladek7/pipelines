@@ -13,6 +13,7 @@ name: RunPipeline
 
 stages:
 - stage: SingleOne
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   displayName: "Test for variable"
   jobs:
   - job: Set_Var
